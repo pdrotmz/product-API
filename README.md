@@ -1,4 +1,3 @@
-```markdown
 # Product API
 
 Uma API RESTful para gerenciamento de produtos, desenvolvida com Spring Boot e Java 21.
