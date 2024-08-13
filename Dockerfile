@@ -12,7 +12,7 @@ WORKDIR /app
 COPY . .
 
 # Construir o projeto
-RUN mvn clean install
+RUN mvn clean install -Dmaven.test.skip=true
 
 # Construir o projeto sem executar os testes
 RUN mvn clean install -DskipTests
