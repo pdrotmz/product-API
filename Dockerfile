@@ -1,16 +1,31 @@
+#Estágio de build
 FROM ubuntu:latest AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-21-jdk -y
+# Atualizar repositórios e instalar JDK e Maven
+RUN apt-get update && \
+    apt-get install -y openjdk-21-jdk maven
+
+# Definir o diretório de trabalho
+WORKDIR /app
+
+# Copiar o conteúdo do projeto para o contêiner
 COPY . .
 
-RUN apt-get install maven -y
+# Construir o projeto
 RUN mvn clean install
 
-FROM openjdk21-jdk-slim
+# Construir o projeto sem executar os testes
+RUN mvn clean install -DskipTests
 
+
+# Estágio de runtime
+FROM openjdk:21-jdk-slim
+
+# Expor a porta 8080
 EXPOSE 8080
 
-COPY --from=build /target/productSBA-0.0.1-SNAPSHOT.jar app.jar
+# Copiar o jar construído do estágio de build para o estágio de runtime
+COPY --from=build /app/target/productSBA-0.0.1-SNAPSHOT.jar /app.jar
 
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+# Comando para executar a aplicação
+ENTRYPOINT ["java", "-jar", "/app.jar"]
