@@ -1,5 +1,3 @@
-Aqui está o `README.md` personalizado para o repositório `product-API`:
-
 ```markdown
 # Product API
 
@@ -44,7 +42,7 @@ Antes de iniciar, certifique-se de ter instalado:
    cd product-API
    ```
 
-2. Compile e execute a aplicação:
+2. Compilação e execução da aplicação:
 
    - **Com Maven:**
      ```bash
